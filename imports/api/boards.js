@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 // lib
-import { convertFieldIdToRowCol, isValidMove, setField } from '../../lib/gameLogic.js';
+import { convertFieldIdToRowCol, hasWinner, isValidMove, setField } from '../../lib/gameLogic.js';
 
 export const Boards = new Mongo.Collection('boards');
 
@@ -40,6 +40,12 @@ Meteor.methods({
             const newBoard = setField(JSON.parse(board), index.row, index.col, is_player_1_turn ? 1 : 2);
 
             let status = is_player_1_turn ? `turn_player_2` : `turn_player_1`;
+
+            let winner = hasWinner(newBoard.board);
+
+            if (winner.status) {
+                status = `win_player_${winner.player}`
+            }
 
             const data = { 
                 board: JSON.stringify(newBoard.board), 

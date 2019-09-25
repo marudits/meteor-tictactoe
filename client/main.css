@@ -4,12 +4,18 @@ body {
 }
 
 table {
+  border-collapse: collapse;
+  border-style: hidden;
   font-family: Arial, Helvetica, sans-serif;
   margin: auto;
 }
 
+table td {
+  border: 5px solid black;
+}
+
 .field {
-  background-color: lightgray;
+  background-color: white;
   height: 200px;
   overflow: hidden;
   width: 200px;
@@ -20,7 +26,7 @@ table {
 }
 
 .field.player-1, .field.player-2 {
-  background-color: gray;
+  background-color: whitesmoke;
 }
 
 .field.player-1 span.item::after {
