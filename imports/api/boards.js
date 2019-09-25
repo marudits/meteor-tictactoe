@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 // lib
-import { convertFieldIdToRowCol, hasWinner, setField } from '../../lib/gameLogic.js';
+import { convertFieldIdToRowCol, isValidMove, setField } from '../../lib/gameLogic.js';
 
 export const Boards = new Mongo.Collection('boards');
 
@@ -35,16 +35,20 @@ Meteor.methods({
         let { board, is_player_1_turn, _id } = game;
         
         const index = convertFieldIdToRowCol(fieldId);
-        const newBoard = setField(JSON.parse(board), index.row, index.col, is_player_1_turn ? 1 : 2);
 
-        let status = is_player_1_turn ? `turn_player_2` : `turn_player_1`;
+        if (isValidMove(JSON.parse(board), index.row, index.col)) {
+            const newBoard = setField(JSON.parse(board), index.row, index.col, is_player_1_turn ? 1 : 2);
 
-        const data = { 
-            board: JSON.stringify(newBoard.board), 
-            is_player_1_turn: !is_player_1_turn,
-            status 
+            let status = is_player_1_turn ? `turn_player_2` : `turn_player_1`;
+
+            const data = { 
+                board: JSON.stringify(newBoard.board), 
+                is_player_1_turn: !is_player_1_turn,
+                status 
+            }
+
+            Boards.update(_id, { $set: data })
         }
-
-        Boards.update(_id, { $set: data })
+        
     }
 })
