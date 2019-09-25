@@ -3,6 +3,28 @@ body {
   font-family: sans-serif;
 }
 
+content .info {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+content .info h3 {
+  display: inline;
+  margin-right: 2rem;
+}
+
+content .info h3:last-child {
+  margin-right: 0px;
+}
+
+content .info h3 span.player-1::after {
+  content: '\2717';
+}
+
+content .info h3 span.player-2::after {
+  content: '\25EF';
+}
+
 table {
   border-collapse: collapse;
   border-style: hidden;
@@ -16,9 +38,9 @@ table td {
 
 .field {
   background-color: white;
-  height: 200px;
+  height: 150px;
   overflow: hidden;
-  width: 200px;
+  width: 150px;
 }
 
 .field.player-null {
