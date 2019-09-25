@@ -1,0 +1,16 @@
+<template name="board">
+    {{ status }}
+    <table id="board">
+        {{#each row in board}}
+            {{#let rowIndex = @index}}
+            <tr>
+                {{#each item in row}}
+                <td class="field player-{{item}}" id="{{rowIndex}}-{{@index}}">
+                    <span class="item"></span>
+                </td>
+                {{/each}}
+            </tr>
+            {{/let}}
+        {{/each}}
+    </table>
+</template>

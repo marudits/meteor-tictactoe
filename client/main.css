@@ -1,0 +1,38 @@
+body {
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+}
+
+.field {
+  background-color: lightgray;
+  height: 200px;
+  overflow: hidden;
+  width: 200px;
+}
+
+.field.player- {
+  cursor: pointer;
+}
+
+.field.player-1, .field.player-2 {
+  background-color: gray;
+}
+
+.field.player-1 span.item::after {
+  content: '\2717';
+  display: block;
+  font-size: 5rem;
+  text-align: center;
+}
+
+.field.player-2 span.item::after {
+  content: '\25EF';
+  display: block;
+  font-size: 5rem;
+  text-align: center;
+}
