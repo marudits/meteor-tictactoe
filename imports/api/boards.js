@@ -17,8 +17,10 @@ Meteor.methods({
         const newBoard = Boards.insert({
             createdAt: new Date(),
             board: JSON.stringify(new Array(length).fill(new Array(length).fill(null))),
-            is_player_1_turn: true,
-            status: 'initialize'
+            isPlayer1Turn: true,
+            status: 'initialize',
+            player1: Meteor.userId(),
+            player2: null
         });
 
         return newBoard;
@@ -32,14 +34,14 @@ Meteor.methods({
     'boards.setField'(boardId, fieldId) {
         const game = Boards.findOne(boardId);
         
-        let { board, is_player_1_turn, _id } = game;
+        let { board, isPlayer1Turn, _id } = game;
         
         const index = convertFieldIdToRowCol(fieldId);
 
         if (isValidMove(JSON.parse(board), index.row, index.col)) {
-            const newBoard = setField(JSON.parse(board), index.row, index.col, is_player_1_turn ? 1 : 2);
+            const newBoard = setField(JSON.parse(board), index.row, index.col, isPlayer1Turn ? 1 : 2);
 
-            let status = is_player_1_turn ? `turn_player_2` : `turn_player_1`;
+            let status = isPlayer1Turn ? `turn_player_2` : `turn_player_1`;
 
             let winner = hasWinner(newBoard.board);
 
@@ -49,7 +51,7 @@ Meteor.methods({
 
             const data = { 
                 board: JSON.stringify(newBoard.board), 
-                is_player_1_turn: !is_player_1_turn,
+                isPlayer1Turn: !isPlayer1Turn,
                 status 
             }
 

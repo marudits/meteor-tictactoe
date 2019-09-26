@@ -32,7 +32,7 @@ Template.board.events({
         const boardId = FlowRouter.getParam('board_id');
         const game = Boards.findOne(boardId);
         
-        let { board, is_player_1_turn, _id } = game;
+        let { board } = game;
 
         if (!hasWinner(JSON.parse(board)).status) {
             const index = convertFieldIdToRowCol(e.target.id);
