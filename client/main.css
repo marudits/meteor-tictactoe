@@ -1,6 +1,36 @@
 body {
+  background-color: #000;
+  color: #fff;
   padding: 10px;
   font-family: sans-serif;
+}
+
+header {
+  text-align: center;
+}
+
+header h1 {
+  margin: 0px;
+}
+
+header .button-init {
+  background-color: #000;
+  border: 3px solid #fff;
+  border-radius: 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  height: 50px;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  width: 150px;
+}
+
+header .button-init:hover {
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
 }
 
 content .info {
@@ -10,11 +40,14 @@ content .info {
 
 content .info h3 {
   display: inline;
+}
+
+content .info h3:first-child {
   margin-right: 2rem;
 }
 
 content .info h3:last-child {
-  margin-right: 0px;
+  display: block;
 }
 
 content .info h3 span.player-1::after {
@@ -33,22 +66,16 @@ table {
 }
 
 table td {
-  border: 5px solid black;
+  border: 5px solid #fff;
 }
 
 .field {
-  background-color: white;
-  height: 150px;
+  background-color: #000;
   overflow: hidden;
-  width: 150px;
 }
 
 .field.player-null {
   cursor: pointer;
-}
-
-.field.player-1, .field.player-2 {
-  background-color: whitesmoke;
 }
 
 .field.player-1 span.item::after {
@@ -63,4 +90,27 @@ table td {
   display: block;
   font-size: 5rem;
   text-align: center;
+}
+
+
+@media only screen and (min-width: 480px) { 
+  header h1 {
+    font-size: 5em;
+  }
+
+  .field {
+    height: 250px;
+    width: 250px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  header h1 {
+    font-size: 2.5em;
+  }
+
+  .field {
+    height: 150px !important;
+    width: 150px !important;
+  }
 }

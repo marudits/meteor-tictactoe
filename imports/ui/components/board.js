@@ -25,13 +25,6 @@ Template.board.helpers({
     item(board, row, col) {
         return `${board[row][col]}`
     },
-    status() {
-        const board = Boards.findOne(FlowRouter.getParam('board_id'));
-
-        if (board) {
-            return board.status;
-        }
-    }
 })
 
 Template.board.events({
