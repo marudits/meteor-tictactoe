@@ -5,7 +5,7 @@ import { Template } from 'meteor/templating';
 import { Boards } from '../../api/boards';
 
 // lib
-import { convertFieldIdToRowCol, hasWinner, isValidMove } from '../../../lib/gameLogic.js';
+import { convertFieldIdToRowCol, hasWinner, isValidMove, isYourTurn } from '../../../lib/gameLogic.js';
 
 // ui : components
 import './board.html';
@@ -32,15 +32,18 @@ Template.board.events({
         const boardId = FlowRouter.getParam('board_id');
         const game = Boards.findOne(boardId);
         
-        let { board } = game;
+        let { board, isPlayer1Turn, player1 } = game;
+
+        if (!isYourTurn(Meteor.userId(), player1, isPlayer1Turn)) {
+            alert('Keep calm! It is not your turn yet.');
+            return;
+        }
 
         if (!hasWinner(JSON.parse(board)).status) {
             const index = convertFieldIdToRowCol(e.target.id);
 
             if (isValidMove(JSON.parse(board)), index.row, index.col) {
                 Meteor.call('boards.setField', boardId, e.target.id);
-            } else {
-                alert('Invalid move');
             }
         }   
     }
