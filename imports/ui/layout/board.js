@@ -60,7 +60,9 @@ Template.layoutBoard.helpers({
 
         switch (status) {
         case 'initialize':
-            return `Game is started. ${currentUser === board.player1 ? `Now is Your` : `Opponent`} Turn`;
+            return `Game is started. ${board.player2 ? (currentUser === board.player1 ? `Now is Your Turn` : `Opponent Turn`) : `Waiting your opponent to join`}`;
+        case 'tied':
+            return `No winner on this game.`;
         case 'turn_player_1':
             return `${currentUser === board.player1 ? `Your` : `Opponent`} Turn`;
         case 'turn_player_2':

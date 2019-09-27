@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 
 // lib
-import { convertFieldIdToRowCol, hasWinner, isValidMove, setField } from '../../lib/gameLogic.js';
+import { convertFieldIdToRowCol, hasWinner, isGameTied, isValidMove, setField } from '../../lib/gameLogic.js';
 
 export const Boards = new Mongo.Collection('boards');
 
@@ -48,6 +48,10 @@ Meteor.methods({
 
             if (winner.status) {
                 status = `win_player_${winner.player}`
+            }
+
+            if (isGameTied(newBoard.board)) {
+                status = `tied`;
             }
 
             const data = { 

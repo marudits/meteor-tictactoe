@@ -5,7 +5,7 @@ import { Template } from 'meteor/templating';
 import { Boards } from '../../api/boards';
 
 // lib
-import { convertFieldIdToRowCol, hasWinner, isValidMove, isYourTurn } from '../../../lib/gameLogic.js';
+import { convertFieldIdToRowCol, hasWinner, isGameEnded, isValidMove, isYourTurn } from '../../../lib/gameLogic.js';
 
 // ui : components
 import './board.html';
@@ -32,7 +32,17 @@ Template.board.events({
         const boardId = FlowRouter.getParam('board_id');
         const game = Boards.findOne(boardId);
         
-        let { board, isPlayer1Turn, player1 } = game;
+        let { board, isPlayer1Turn, player1, player2 } = game;
+
+        if (!player2) {
+            alert(`Waiting your opponent to join. Invite now by share this board : \n${window.location.href}`);
+            return;
+        }
+
+        if (isGameEnded(JSON.parse(board))) {
+            alert(`Game has ended`);
+            return;
+        }
 
         if (!isYourTurn(Meteor.userId(), player1, isPlayer1Turn)) {
             alert('Keep calm! It is not your turn yet.');
