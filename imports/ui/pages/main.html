@@ -1,36 +1,18 @@
-<body>
-    <main class="container">
-        <header>
-            <h1>Tic Tac Toe</h1>
-            
-            {{#if isLoggedIn}}
-                {{> loginButtons}}    
-                {{> buttonInit}}
-            {{else}}
-                <p>Please Sign In to play/continue the game</p>
-                {{> loginButtons}}  
-            {{/if}}
-            
-        </header>
-
-        <content>
-            {{#if isLoggedIn}}
-                {{#if isPlayerInGame}}
-                    <div class="info">
-                        <h3>Player 1 : <span class="player-1"></span></h3>
-                        <h3>Player 2 : <span class="player-2"></span></h3>
-                        <h3>{{ statusText status}}</h3>
-                    </div>
-                    {{> board}}
-                {{else}}
-                    {{#if canJoinGame}}
-                        <p class="info-join action-join">Join Game!</p>
-                    {{else}}
-                        <p class="info-join">Sorry, you can't participate to this game.</p>
-                    {{/if}}
+<template name="mainTemplate">
+    <body>
+        <main class="container">
+            <header>
+                <h1>TicTacToe</h1>
+                {{#if isNotLoggedIn}}
+                    <p>Please Sign In to play/continue the game</p>
                 {{/if}}
-                
-            {{/if}}
-        </content>
-    </main>
-</body>
+    
+                {{> loginButtons}}  
+            </header>
+    
+            <content>
+                {{> Template.dynamic template=main}}
+            </content>
+        </main>
+    </body>
+</template>
