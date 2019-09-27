@@ -28,6 +28,9 @@ Meteor.methods({
     'boards.find'(boardId) {
         return Boards.findOne(boardId)
     },
+    'boards.join'(boardId) {
+        Boards.update(boardId, { $set: { player2: Meteor.userId() } })
+    },
     'boards.reset'(boardId) {
         const currentGame = Boards.findOne(boardId);
     },

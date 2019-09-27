@@ -11,16 +11,19 @@ import '../components/buttonInit.js';
 // ui : pages
 import './main.html';
 
+Template.body.onCreated(() => {
+  Meteor.subscribe('boards');
+})
+
 Template.body.helpers({
-  canSeeBoard() {
+  canJoinGame() {
     const board = Boards.findOne(FlowRouter.getParam('board_id'));
     
     if (board) {
-      return Meteor.userId() && (board.player1 === Meteor.userId() || board.player2 === Meteor.userId())
+      return board.player1 !== Meteor.userId() && board.player2 === null;
     }
   },
   isLoggedIn() {
-    const board = Boards.findOne(FlowRouter.getParam('board_id'));
     return Meteor.userId()
   },
   isPlayerInGame() {
@@ -54,3 +57,9 @@ Template.body.helpers({
     }
   }
 });
+
+Template.body.events({
+  'click .action-join'() {
+    Meteor.call('boards.join', FlowRouter.getParam('board_id'))
+  }
+})

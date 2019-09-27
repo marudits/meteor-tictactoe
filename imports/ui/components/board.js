@@ -11,7 +11,7 @@ import { convertFieldIdToRowCol, hasWinner, isValidMove } from '../../../lib/gam
 import './board.html';
 
 Template.board.onCreated(function boardOnCreated() {
-    Meteor.subscribe('boards', FlowRouter.getParam('board_id'));
+    Meteor.subscribe('boards');
 })
 
 Template.board.helpers({

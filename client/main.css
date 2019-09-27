@@ -58,6 +58,16 @@ content .info h3 span.player-2::after {
   content: '\25EF';
 }
 
+content .info-join {
+  cursor: pointer;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+content .action-join:hover {
+  text-decoration: underline;
+}
+
 table {
   border-collapse: collapse;
   border-style: hidden;
