@@ -20,6 +20,7 @@ Meteor.methods({
             isPlayer1Turn: true,
             status: 'initialize',
             player1: Meteor.userId(),
+            player1Username: Meteor.user().username,
             player2: null
         });
 
@@ -29,10 +30,7 @@ Meteor.methods({
         return Boards.findOne(boardId)
     },
     'boards.join'(boardId) {
-        Boards.update(boardId, { $set: { player2: Meteor.userId() } })
-    },
-    'boards.reset'(boardId) {
-        const currentGame = Boards.findOne(boardId);
+        Boards.update(boardId, { $set: { player2: Meteor.userId(), player2Username: Meteor.user().username } })
     },
     'boards.setField'(boardId, fieldId) {
         const game = Boards.findOne(boardId);

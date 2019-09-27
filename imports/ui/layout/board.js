@@ -35,11 +35,16 @@ Template.layoutBoard.helpers({
     playerInfo() {
         const board = Boards.findOne(FlowRouter.getParam('board_id'));
 
-        return {
-            player1Id : board.player1,
-            player1DisplayName: Meteor.userId() === board.player1 ? `You` : Meteor.user().username,
-            player2Id : board.player2,
-            player2DisplayName: Meteor.userId() === board.player2 ? `You` : Meteor.user().username
+        if (board) {
+
+            const { player1, player2, player1Username, player2Username } = board;
+            
+            return {
+                player1Id : player1,
+                player1DisplayName: Meteor.userId() === player1 ? `You` : player1Username || `Opponent`,
+                player2Id : player2,
+                player2DisplayName: Meteor.userId() === player2 ? `You` : player2Username || `Opponent`
+            }
         }
     },
     status() {
